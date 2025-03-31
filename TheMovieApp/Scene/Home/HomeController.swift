@@ -53,9 +53,13 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
             print(model.endpoint)
             self.navigationController?.show(controller, sender: nil)
         }
+        cell.movieSelected = { movie in
+            let coordinator = MovieDetailCoordinator(movie: movie, navigationController: self.navigationController ?? UINavigationController())
+            coordinator.start()
+        }
          return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width, height: 340)
     }
