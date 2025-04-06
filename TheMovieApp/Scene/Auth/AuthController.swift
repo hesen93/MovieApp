@@ -34,9 +34,5 @@ class AuthController: UIViewController {
                 }
             }
         }
-            
     }
-    
-    
-
 }

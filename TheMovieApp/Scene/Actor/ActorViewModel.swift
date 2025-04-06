@@ -10,14 +10,20 @@ import Foundation
 
 class ActorViewModel {
     var items = [ActorData]()
-    let manager = ActorManager()
+    //let manager = ActorManager()
     private var actor: Actor?
+    
+    var useCase:ActorManagerUseCase
+    
+    init(useCase: ActorManagerUseCase) {
+        self.useCase = useCase
+    }
     
     var success: (() -> Void)?
     var error: ((String) -> Void)?
     
     func getActorList() {
-        manager.getActorList(page:(actor?.page ?? 0) + 1 ) { data, errorMessage in
+        useCase.getActorList(page:(actor?.page ?? 0) + 1 ) { data, errorMessage in
             if let errorMessage {
                 self.error?(errorMessage)
             } else if let data {
@@ -31,7 +37,7 @@ class ActorViewModel {
     
     func getActorItems() async {
         do {
-            let data = try await manager.getActorItems(page:(actor?.page ?? 0) + 1 )
+            let data = try await useCase.getActorItems(page:(actor?.page ?? 0) + 1 )
             items.append(contentsOf: data?.results ?? [])
             Task { @MainActor in
                 success?()

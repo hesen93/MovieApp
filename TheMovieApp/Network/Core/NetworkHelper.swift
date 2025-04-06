@@ -14,7 +14,7 @@ enum EncodingType {
 }
 
 
-class NetworkHelper {
+class NetworkHelper { 
     static let shared = NetworkHelper()
     
     let baseURL = "https://api.themoviedb.org/3/"

@@ -10,7 +10,9 @@ import UIKit
 class ActorController: UIViewController {
     @IBOutlet private weak var collection: UICollectionView!
     
-    let viewModel = ActorViewModel()
+    let viewModel = ActorViewModel(useCase: ActorManager())
+   
+    
     
     let refreshControl = UIRefreshControl()
     
@@ -39,6 +41,7 @@ class ActorController: UIViewController {
         Task {
             await viewModel.getActorItems()
         }
+       // viewModel.getActorList()
         viewModel.error = { errorMessage in
             print("Error: \(errorMessage)")
             self.refreshControl.endRefreshing()
